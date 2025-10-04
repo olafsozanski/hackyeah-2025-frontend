@@ -1,9 +1,8 @@
-import { Avatar, Box, Container, Typography } from "@mui/material";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Alert, Avatar, Box, CircularProgress, Container, Typography } from "@mui/material";
+import useAllListing from "../../hooks/useAllListing";
+import moment from "moment";
 
-const queryClient = new QueryClient();
-
-function Listing() {
+function Listing({item}) {
     return (
         <Box
             sx={{
@@ -28,11 +27,11 @@ function Listing() {
                         fontWeight: "bold",
                     }}
                 >
-                    Kierowca samochodu
+                    {item.title}
                 </Typography>
-                <Typography variant="subtitle2">Szlachetna paczka</Typography>
+                <Typography variant="subtitle2">{item.organization.name}</Typography>
                 <Typography variant="subtitle2">
-                    09.09.2025 - wieczór
+                    {moment(item.date).format('DD.MM.YYYY hh:mm')}
                 </Typography>
             </Box>
         </Box>
@@ -40,8 +39,13 @@ function Listing() {
 }
 
 export default function Home() {
+    const { data, isLoading, error } = useAllListing();
+
+    console.log(data);
+    
+    
     return (
-        <QueryClientProvider client={queryClient}>
+        <>
             <Container
                 sx={{
                     display: "flex",
@@ -49,11 +53,12 @@ export default function Home() {
                     padding: 0,
                 }}
             >
-                <Listing />
-                <Listing />
-                <Listing />
-                <Listing />
+                {isLoading && <CircularProgress />}
+                {error && <Alert severity="error">Błąd odczytu tablicy</Alert>}
+                {!isLoading && data.map((item) => {
+                    return <Listing key={item._id} item={item}/>
+                })}
             </Container>
-        </QueryClientProvider>
+        </>
     );
 }
