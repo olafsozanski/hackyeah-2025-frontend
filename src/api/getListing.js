@@ -1,7 +1,9 @@
 import { client } from "../client";
 
-const getListing = async () => {
+export const getListings = async () => {
     return await client.get('/listing').then(r => r.data);
 };
 
-export default getListing;
+export const getListingById = async (id) => {
+    return await client.get(`/listing/${id}`).then(r => r.data);
+};

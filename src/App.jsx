@@ -7,6 +7,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {theme} from './theme.jsx';
+import Details from "./pages/details/Details";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ function App() {
                                 <Route element={<MainLayout />}>
                                     <Route path="home" element={<Home />} />
                                 </Route>
+                                <Route path="/listings/:id" element={<Details />} />
                                 <Route path="/login" element={<Login />} />
                             </Routes>
                         </BrowserRouter>
