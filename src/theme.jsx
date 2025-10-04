@@ -1,5 +1,6 @@
 import {createTheme} from '@mui/material';
 import {colors} from './colors.js';
+import {transparentize} from 'polished';
 
 export const theme = createTheme({
     
@@ -10,10 +11,19 @@ export const theme = createTheme({
         secondary: {
             main: colors.slate[700],
         },
+        divider: colors.slate[300],
     },
     
     
     components: {
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    boxShadow: '0 4px 12px 0 ' + transparentize(0.75, colors.slate[300]),
+                },
+            },
+        },
+        
         MuiToolbar: {
             styleOverrides: {
                 root: {
@@ -101,9 +111,15 @@ export const theme = createTheme({
             textTransform: 'none',
             fontSize: '1rem',
         },
-        
+
         h1: {
             fontSize: '2.25rem',
+            fontWeight: 'bold',
+            letterSpacing: '-0.03em',
+        },
+
+        h2: {
+            fontSize: '1.75rem',
             fontWeight: 'bold',
             letterSpacing: '-0.03em',
         },

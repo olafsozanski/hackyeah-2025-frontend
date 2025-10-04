@@ -1,18 +1,25 @@
-import { Alert, Avatar, Box, CircularProgress, Container, Typography } from "@mui/material";
+import {Alert, Avatar, Box, ButtonBase, CircularProgress, Container, Typography} from '@mui/material';
 import useAllListing from "../../hooks/useAllListing";
 import moment from "moment";
+import {useNavigate} from 'react-router';
 
 function Listing({item}) {
+    const navigate = useNavigate();
     return (
-        <Box
+        <ButtonBase
             sx={{
+                fontSize: '1rem',
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                textAlign: 'left',
                 p: 2,
                 gap: 2,
-                borderBottom: "1px solid grey",
+                borderBottomWidth: 1,
+                borderBottomStyle: 'solid',
+                borderBottomColor: 'divider',
             }}
+            onClick={() => navigate(`/listings/${item._id}`)}
         >
             <Avatar></Avatar>
             <Box
@@ -21,20 +28,20 @@ function Listing({item}) {
                     flexDirection: "column",
                 }}
             >
-                <Typography
-                    variant="h6"
-                    sx={{
-                        fontWeight: "bold",
-                    }}
+                <Box
+                    fontWeight="bold"
+                    fontSize="1rem"
+                    lineHeight="135%"
+                    mb={0.25}
                 >
                     {item.title}
-                </Typography>
+                </Box>
                 <Typography variant="subtitle2">{item.organization.name}</Typography>
                 <Typography variant="subtitle2">
                     {moment(item.date).format('DD.MM.YYYY hh:mm')}
                 </Typography>
             </Box>
-        </Box>
+        </ButtonBase>
     );
 }
 
