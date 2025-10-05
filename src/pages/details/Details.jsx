@@ -12,17 +12,21 @@ import {
     Typography,
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useListingById } from "../../hooks/useListing";
 import BusinessIcon from "@mui/icons-material/Business";
 import LanguageIcon from "@mui/icons-material/Language";
 import PhoneIcon from "@mui/icons-material/Phone";
 import HomeIcon from "@mui/icons-material/Home";
+import { useEffect } from "react";
 
-export default function Details() {
-    const navigate = useNavigate();
+export default function Details({ setPreviousPage }) {
     const { id } = useParams();
     const { data, isLoading, error } = useListingById(id);
+
+    useEffect(() => {
+        setPreviousPage("/home");
+    }, [setPreviousPage]);
 
     if (isLoading) return <CircularProgress />;
     if (error) return <Alert severity="error">Błąd odczytu ogłoszenia</Alert>;
@@ -35,20 +39,6 @@ export default function Details() {
                 gap: 2,
             }}
         >
-            <Box sx={{ flexGrow: 1, pt: 1 }}>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ m: 0 }}
-                    onClick={() => {
-                        navigate("/home");
-                    }}
-                >
-                    <ArrowBack />
-                </IconButton>
-            </Box>
             <Box>
                 <Typography variant="h2">{data.title}</Typography>
                 <Typography variant="body1">{data.description}</Typography>

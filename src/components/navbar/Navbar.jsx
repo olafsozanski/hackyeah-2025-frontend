@@ -1,10 +1,14 @@
-import { AppBar, Box, Divider, IconButton, List, ListItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from "react";
+import ArticleIcon from '@mui/icons-material/Article';
+import ChatIcon from '@mui/icons-material/Chat';
+import { useNavigate } from "react-router";
 
-export default function Navbar() {
+export default function Navbar({appBarTitle}) {
     const [openDrawer, setOpenDrawer] = useState(false);
+    const navigate = useNavigate();
 
     function handleOpen() {
         setOpenDrawer(true);
@@ -12,6 +16,11 @@ export default function Navbar() {
 
     function handleClose() {
         setOpenDrawer(false);
+    }
+
+    function handleLink(path) {
+        setOpenDrawer(false);
+        navigate(path);
     }
 
     return (
@@ -31,7 +40,7 @@ export default function Navbar() {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            Tablica
+                            {appBarTitle}
                         </Typography>
                         </Toolbar>
                     </AppBar>
@@ -41,15 +50,19 @@ export default function Navbar() {
                     onClose={handleClose}
                     onOpen={handleClose}
                 >
-                    <List sx={{
-                        width: '50vw%'
-                    }}>
-                        <ListItem>
-                            jagjshdga
-                        </ListItem>
-                        <ListItem>
-                            jagjshdga
-                        </ListItem>
+                    <List>
+                        <ListItemButton onClick={() => {handleLink("/home")}}>
+                            <ListItemIcon>
+                                <ArticleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Tablica" />
+                        </ListItemButton>
+                        <ListItemButton onClick={() => {handleLink("/chats")}}>
+                            <ListItemIcon>
+                                <ChatIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Chat" />
+                        </ListItemButton>
                     </List>
                 </SwipeableDrawer>
             </React.Fragment>

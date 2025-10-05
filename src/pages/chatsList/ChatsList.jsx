@@ -1,11 +1,17 @@
 import {Alert, Avatar, Box, ButtonBase, CircularProgress, Container, Typography} from '@mui/material';
-import { useAllListings } from "../../hooks/useListing";
-import moment from "moment";
 import {useNavigate} from 'react-router';
 import { useEffect } from 'react';
+import { useAllChats } from '../../hooks/useChat';
+import { useUser } from '../../store/auth';
 
-function Listing({item}) {
+function ChatLink({chat}) {
     const navigate = useNavigate();
+    const currentUser = useUser();
+    const name = chat.users
+        .filter((user) => user._id !== currentUser._id)
+        .map((user) => user.name)
+        .join(', ');
+        
     return (
         <ButtonBase
             sx={{
@@ -13,6 +19,7 @@ function Listing({item}) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                justifyContent: "left",
                 textAlign: 'left',
                 p: 2,
                 gap: 2,
@@ -20,7 +27,7 @@ function Listing({item}) {
                 borderBottomStyle: 'solid',
                 borderBottomColor: 'divider',
             }}
-            onClick={() => navigate(`/listings/${item._id}`)}
+            onClick={() => navigate(`/chats/${chat._id}`)}
         >
             <Avatar></Avatar>
             <Box
@@ -35,21 +42,17 @@ function Listing({item}) {
                     lineHeight="135%"
                     mb={0.25}
                 >
-                    {item.title}
+                    {name}
                 </Box>
-                <Typography variant="subtitle2">{item.organization.name}</Typography>
-                <Typography variant="subtitle2">
-                    {moment(item.date).format('DD.MM.YYYY hh:mm')}
-                </Typography>
             </Box>
         </ButtonBase>
     );
 }
 
-export default function Home({setAppBarTitle}) {
-    const { data, isPending, error } = useAllListings();    
+export default function Chats({setAppBarTitle}) {
+    const { data, isPending, error } = useAllChats();    
     useEffect(() => {
-        setAppBarTitle("Tablica");
+        setAppBarTitle("Wszystkie chaty");
     }, [setAppBarTitle]);
 
     return (
@@ -62,9 +65,9 @@ export default function Home({setAppBarTitle}) {
                 }}
             >
                 {isPending && <CircularProgress />}
-                {error && <Alert severity="error">Błąd odczytu tablicy</Alert>}
-                {!isPending && data.map((item) => {
-                    return <Listing key={item._id} item={item}/>
+                {error && <Alert severity="error">Błąd odczytu chatów</Alert>}
+                {!isPending && data.map((chat) => {
+                    return <ChatLink key={chat._id} chat={chat}/>
                 })}
             </Container>
         </>
