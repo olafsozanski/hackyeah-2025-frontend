@@ -1,5 +1,5 @@
 import {Alert, Avatar, Box, ButtonBase, CircularProgress, Container, Typography} from '@mui/material';
-import useAllListing from "../../hooks/useAllListing";
+import { useAllListings } from "../../hooks/useListing";
 import moment from "moment";
 import {useNavigate} from 'react-router';
 
@@ -46,10 +46,7 @@ function Listing({item}) {
 }
 
 export default function Home() {
-    const { data, isLoading, error } = useAllListing();
-
-    console.log(data);
-    
+    const { data, isPending, error } = useAllListings();    
     
     return (
         <>
@@ -60,9 +57,9 @@ export default function Home() {
                     padding: 0,
                 }}
             >
-                {isLoading && <CircularProgress />}
+                {isPending && <CircularProgress />}
                 {error && <Alert severity="error">Błąd odczytu tablicy</Alert>}
-                {!isLoading && data.map((item) => {
+                {!isPending && data.map((item) => {
                     return <Listing key={item._id} item={item}/>
                 })}
             </Container>
