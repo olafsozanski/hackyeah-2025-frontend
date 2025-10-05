@@ -14,6 +14,7 @@ import { useState } from "react";
 import Chats from "./pages/chatsList/ChatsList";
 import Chat from "./pages/chat/Chat";
 import SubPageLayout from "./layouts/SubPageLayout";
+import {colors} from './colors.js';
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <QueryClientProvider client={queryClient}>
                     <RoleProvider>
-                        <Box sx={{ height: '100vh' }}>
+                        <Box sx={{ height: '100vh', bgcolor: colors.slate[100] }}>
                             <BrowserRouter>
                                 <Routes>
                                     <Route path="/" element={<Welcome />} />

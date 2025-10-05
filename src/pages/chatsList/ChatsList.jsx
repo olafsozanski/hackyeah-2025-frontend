@@ -44,6 +44,16 @@ function ChatLink({chat}) {
                 >
                     {name}
                 </Box>
+                {chat.listing && (
+                    <Box
+                        fontSize="0.875rem"
+                        lineHeight="135%"
+                        color="secondary.main"
+                        mb={0.25}
+                    >
+                        odnośnie: {chat.listing.title}
+                    </Box>
+                )}
             </Box>
         </ButtonBase>
     );

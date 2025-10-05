@@ -50,7 +50,7 @@ export default function Navbar({appBarTitle}) {
                     onClose={handleClose}
                     onOpen={handleClose}
                 >
-                    <List>
+                    <List sx={{width: 240}}>
                         <ListItemButton onClick={() => {handleLink("/home")}}>
                             <ListItemIcon>
                                 <ArticleIcon />

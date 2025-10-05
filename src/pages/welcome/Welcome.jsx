@@ -10,9 +10,8 @@ export default function Welcome() {
             py: 2,
         }}>
             <Box display={'flex'} flexDirection={'column'} height={'100%'}>
-                <Box>Nazwa aplikacji</Box>
                 <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={'1rem'} flex={1}>
-                    <img style={{width: '100%'}} src="https://picsum.photos/seed/picsum/600"/>
+                    <img style={{width: '100%'}} src="/hands.png"/>
                     <Typography variant="h1">
                         Wolontariusze i organizacje <Typography variant="h1" color="primary.main" component={'span'}>w jednym miejscu</Typography>
                     </Typography>

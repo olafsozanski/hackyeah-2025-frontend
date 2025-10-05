@@ -37,10 +37,10 @@ function Listing({item}) {
                 >
                     {item.title}
                 </Box>
-                <Typography variant="subtitle2">{item.organization.name}</Typography>
-                <Typography variant="subtitle2">
+                <Box color="secondary.main" fontSize="0.875rem">{item.organization.name}</Box>
+                <Box color="secondary.main" fontSize="0.875rem">
                     {moment(item.date).format('DD.MM.YYYY hh:mm')}
-                </Typography>
+                </Box>
             </Box>
         </ButtonBase>
     );

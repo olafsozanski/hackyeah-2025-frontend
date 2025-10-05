@@ -3,8 +3,8 @@ import {
     TextField,
     IconButton,
     CircularProgress,
-    Alert,
-} from "@mui/material";
+    Alert, Typography, Stack,
+} from '@mui/material';
 import SendIcon from "@mui/icons-material/Send";
 import { useState, useEffect, useRef } from "react";
 import { useChatById } from "../../hooks/useChat";
@@ -13,14 +13,18 @@ import { useUser } from "../../store/auth";
 
 const Message = ({ message }) => {
     const currentUser = useUser();
+    const align =  !message.sender ? "right" : (message.sender._id !== currentUser._id ? "right" : "left");
 
     return (
         <>
+            <Typography fontSize="0.875rem" textAlign={align}>
+                {message.sender.name}
+            </Typography>
             <Box
                 sx={{
                     mb: 1,
                     display: 'flex',
-                    justifyContent: !message.user ? "right" : message.user !== currentUser._id ? "right" : "left", 
+                    justifyContent: align, 
                 }}
             >
                 <Box
@@ -30,6 +34,7 @@ const Message = ({ message }) => {
                         bgcolor: "white",
                         borderRadius: 2,
                         boxShadow: 1,
+                        maxWidth: '90%',
                     }}
                 >
                     {message.content}
@@ -45,6 +50,7 @@ export default function Chat({ setPreviousPage }) {
     const messagesEndRef = useRef(null);
     const { id } = useParams();
     const { data, isLoading, error } = useChatById(id);
+    const currentUser = useUser();
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -56,7 +62,7 @@ export default function Chat({ setPreviousPage }) {
 
     const handleSend = () => {
         if (!input.trim()) return;
-        setMessages([...messages, { content: input, _id: Date.now() }]);
+        setMessages([...messages, { content: input, _id: Date.now(), user: currentUser }]);
         setInput("");
     };
 
@@ -72,7 +78,8 @@ export default function Chat({ setPreviousPage }) {
             }}
         >
             {/* Lista wiadomości */}
-            <Box
+            <Stack
+                gap={1}
                 sx={{
                     flexGrow: 1,
                     overflowY: "auto",
@@ -87,7 +94,7 @@ export default function Chat({ setPreviousPage }) {
                     return <Message key={message._id} message={message} />;
                 })}
                 <div ref={messagesEndRef} />
-            </Box>
+            </Stack>
 
             {/* Input na dole */}
             <Box

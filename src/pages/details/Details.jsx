@@ -19,6 +19,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import PhoneIcon from "@mui/icons-material/Phone";
 import HomeIcon from "@mui/icons-material/Home";
 import { useEffect } from "react";
+import {colors} from '../../colors.js';
+// import ExampleCategoryImage from '../../assets/example-category.png';
 
 export default function Details({ setPreviousPage }) {
     const { id } = useParams();
@@ -44,9 +46,13 @@ export default function Details({ setPreviousPage }) {
                 <Typography variant="body1">{data.description}</Typography>
             </Box>
             <Card
-                elevation={5}
                 sx={{
                     boxSizing: "border-box",
+                    '& svg': {
+                        width: 16,
+                        height: 16,
+                        color: colors.slate[700],
+                    },
                 }}
             >
                 <CardContent>
@@ -56,38 +62,40 @@ export default function Details({ setPreviousPage }) {
                     <Typography variant="body1">
                         {data.organization?.description}
                     </Typography>
-                    <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={1}
-                        mt={2}
-                    >
-                        <BusinessIcon />
-                        <Typography variant="subtitle1">
-                            {data.organization?.type}
-                        </Typography>
-                    </Stack>
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                        <LanguageIcon />
-                        <Typography variant="subtitle1">
-                            {data.organization?.website}
-                        </Typography>
-                    </Stack>
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                        <PhoneIcon />
-                        <Typography variant="subtitle1">
-                            {data.organization?.phone}
-                        </Typography>
-                    </Stack>
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                        <HomeIcon />
-                        <Typography variant="subtitle1">
-                            {data.organization?.address}
-                        </Typography>
+                    <Stack gap={0.5}>
+                        <Stack
+                            direction="row"
+                            alignItems="center"
+                            spacing={1}
+                            mt={2}
+                        >
+                            <BusinessIcon />
+                            <Typography color="secondary">
+                                {data.organization?.type}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <LanguageIcon />
+                            <Typography color="secondary">
+                                {data.organization?.website}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <PhoneIcon />
+                            <Typography color="secondary">
+                                {data.organization?.phone}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <HomeIcon />
+                            <Typography color="secondary">
+                                {data.organization?.address}
+                            </Typography>
+                        </Stack>
                     </Stack>
                 </CardContent>
             </Card>
-            <Card elevation={5}>
+            <Card>
                 <CardContent>
                     <Typography variant="h5">Niezbędne umiejętności</Typography>
                     <Box

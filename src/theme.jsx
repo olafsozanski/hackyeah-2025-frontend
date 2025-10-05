@@ -12,6 +12,10 @@ export const theme = createTheme({
             main: colors.slate[700],
         },
         divider: colors.slate[300],
+        background: {
+            paper: 'white',
+            default: colors.slate[50],
+        },
     },
     
     
@@ -48,6 +52,15 @@ export const theme = createTheme({
             },
             defaultProps: {
                 disableElevation: true,
+            },
+        },
+        
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    boxShadow: '0 4px 16px 0 ' + transparentize(0.5, colors.slate[300]),
+                    border: '1px solid ' + colors.slate[300],
+                },
             },
         },
         
@@ -122,6 +135,17 @@ export const theme = createTheme({
             fontSize: '1.75rem',
             fontWeight: 'bold',
             letterSpacing: '-0.03em',
+        },
+
+        h5: {
+            fontSize: '1.125rem',
+            fontWeight: 'bold',
+            letterSpacing: '-0.03em',
+        },
+
+        subtitle1: {
+            fontSize: '1rem',
+            color: colors.slate[700],
         },
     },
 });
